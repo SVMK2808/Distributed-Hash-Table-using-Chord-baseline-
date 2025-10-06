@@ -1,0 +1,62 @@
+# config/settings.yaml
+# Baseline DHT configuration (JSON-over-TCP implementation)
+
+node:
+  # Host and port used when launching a node (CLI can override)
+  host: "127.0.0.1"
+  port: 8000
+
+  # ID space size (bits). We use SHA-1 (160 bits) by default.
+  m_bits: 160
+
+  # Stabilization loop interval (seconds)
+  stabilization_interval: 5
+
+  # How long to wait between consecutive retry attempts when contacting a peer (seconds)
+  rpc_retry_interval: 1
+
+network:
+  # Timeout in seconds for RPC calls (socket connect/read)
+  rpc_timeout: 3
+
+  # Max number of pending connections the server will accept
+  listen_backlog: 32
+
+  # Max size of a single message (bytes). Helps guard against malformed huge payloads.
+  max_message_size: 65536
+
+storage:
+  # If persistence is enabled the node will write its KV store to disk periodically.
+  # Baseline defaults to in-memory only (persistence: false)
+  persistence: false
+
+  # Directory used for storing persisted data if persistence: true
+  data_dir: "./data"
+
+  # Interval (seconds) between periodic persistence snapshots (only if persistence: true)
+  snapshot_interval: 30
+
+logging:
+  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: "INFO"
+
+  # If file is empty or null, logs print to stdout
+  file: null
+
+cli:
+  # Defaults used by CLI if not provided explicitly
+  default_host: "127.0.0.1"
+  default_port: 8000
+
+testing:
+  # Example set of test nodes to spin up during integration tests
+  # format: ["host:port", ...]
+  test_nodes:
+    - "127.0.0.1:8000"
+    - "127.0.0.1:8001"
+    - "127.0.0.1:8002"
+
+# Optional: tuning knobs reserved for future features (replication / finger table)
+advanced:
+  replication_factor: 1
+  finger_table_size: 0
